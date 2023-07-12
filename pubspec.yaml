@@ -15,6 +15,9 @@ dependencies:
   equatable: ^2.0.5
   flutter_bloc: ^8.1.3
   carousel_slider: ^4.2.1
+  flutter_social_button: ^1.1.4+1
+  scrollable_positioned_list: ^0.3.8
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:
@@ -37,4 +40,10 @@ flutter:
           weight: 600
         - asset: assets/fonts/MontBlanc-Trial-Light.otf
           weight: 300
-        
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.otf
+        - asset: assets/fonts/Inter-Light.otf
+          weight: 300
+        - asset: assets/fonts/Inter-Bold.otf
+          weight: 600

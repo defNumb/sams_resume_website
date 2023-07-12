@@ -23,4 +23,23 @@ class SelectedAppBarButtonCubit extends Cubit<SelectedAppBarButtonState> {
       );
     }
   }
+
+  // update hovering
+  void updateIsHovering(bool isHovering, int hoveredIndex) {
+    try {
+      emit(
+        state.copyWith(
+          isHovering: {hoveredIndex: isHovering},
+          error: null,
+        ),
+      );
+    } on CustomError catch (e) {
+      emit(
+        state.copyWith(
+          isHovering: {state.selectedButton: false},
+          error: e,
+        ),
+      );
+    }
+  }
 }

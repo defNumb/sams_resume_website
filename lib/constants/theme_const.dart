@@ -10,8 +10,9 @@ ThemeData themeData(BuildContext context) {
       tertiary: Colors.white,
       // tertiary:  const Color.fromARGB(255, 141, 134, 201),
     ),
-    fontFamily: 'MontBlanc',
+    fontFamily: 'Inter',
     useMaterial3: true,
+    // height of the font
   );
 }
 

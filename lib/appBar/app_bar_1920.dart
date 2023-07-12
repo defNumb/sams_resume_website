@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sams_website/appBar/appbar_buttons.dart';
+import 'package:sams_website/appBar/social_buttons.dart';
 // Appbar widget for screens up to 1920px wide
 
-PreferredSizeWidget appBar1920({required BuildContext context, required VoidCallback callback}){
-    return AppBar(
+PreferredSizeWidget appBar1920(
+    {required BuildContext context, required VoidCallback callback}) {
+  return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: Colors.transparent,
     forceMaterialTransparency: true,
-    elevation: 10,
+    elevation: 0,
     shadowColor: Colors.grey,
     toolbarHeight: 200,
     bottom: PreferredSize(
@@ -22,14 +24,15 @@ PreferredSizeWidget appBar1920({required BuildContext context, required VoidCall
                 Column(
                   children: [
                     TextButton(
-                      onPressed: () {
-                       
-                      },
+                      onPressed: () {},
                       child: Text(
-                        "Samuel Espinoza",
+                        "Sam Espinoza",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
-                          fontFamily: Theme.of(context).textTheme.displayLarge!.fontFamily,
+                          fontFamily: Theme.of(context)
+                              .textTheme
+                              .displayLarge!
+                              .fontFamily,
                           fontSize: 50,
                           fontWeight: FontWeight.w600,
                         ),
@@ -40,7 +43,10 @@ PreferredSizeWidget appBar1920({required BuildContext context, required VoidCall
                       "Flutter Developer",
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.tertiary,
-                        fontFamily: Theme.of(context).textTheme.displayLarge!.fontFamily,
+                        fontFamily: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .fontFamily,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
@@ -49,27 +55,50 @@ PreferredSizeWidget appBar1920({required BuildContext context, required VoidCall
                 ),
                 // empty space
                 const SizedBox(width: 200),
-                Row(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CustomButton(title: "ABOUT ME", index: 0, route: '/home', callback: callback),
-                    CustomButton(title: "EXPERIENCE", index: 1, route: '/experience',callback:callback),
-                    CustomButton(title: "PROJECTS", index: 2, route: '/projects',callback: callback),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        CustomButton(
+                            title: "ABOUT ME",
+                            index: 0,
+                            route: '/home',
+                            callback: callback),
+                        CustomButton(
+                            title: "EXPERIENCE",
+                            index: 1,
+                            route: '/experience',
+                            callback: callback),
+                        CustomButton(
+                            title: "PROJECTS",
+                            index: 2,
+                            route: '/projects',
+                            callback: callback),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    // row with icons for social media
+                    const SocialButtons()
                   ],
                 ),
               ],
             ),
           ),
           // empty space
-         const Padding(
-           padding: EdgeInsets.fromLTRB(0,50,0,20),
-           child: Divider(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 50, 0, 20),
+            child: Divider(
               color: Colors.white,
               thickness: 1,
               indent: 500,
               endIndent: 500,
             ),
-         ),
+          ),
         ],
       ),
     ),
-  );}
+  );
+}
