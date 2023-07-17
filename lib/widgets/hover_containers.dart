@@ -58,8 +58,6 @@ class _HoverContainerState extends State<HoverContainer> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeIn,
-        height: _height(screenWidth),
-        width: _width(screenWidth),
         // rounded corners
         decoration: BoxDecoration(
           boxShadow: !widget.isHovering
@@ -85,19 +83,15 @@ class _HoverContainerState extends State<HoverContainer> {
                   children: _buildChildren2(context, screenWidth),
                 ),
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: _buildChildren(context, screenWidth),
-              ),
+            : _buildChildren(context, screenWidth),
       ),
     );
   }
 
-  List<Widget> _buildChildren(BuildContext context, double screenWidth) {
-    return [
-      SizedBox(
-        width: MediaQuery.of(context).size.width / 10,
-        child: Column(
+  Widget _buildChildren(BuildContext context, double screenWidth) {
+    return Row(
+      children: [
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -117,9 +111,7 @@ class _HoverContainerState extends State<HoverContainer> {
             ),
           ],
         ),
-      ),
-      Expanded(
-        child: Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -172,12 +164,8 @@ class _HoverContainerState extends State<HoverContainer> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 25, 0),
-              child: SizedBox(
-                width: screenWidth < 1366
-                    ? MediaQuery.of(context).size.width / 2
-                    : MediaQuery.of(context).size.width / 3,
+            SizedBox(
+              child: Flexible(
                 child: Text(
                   widget.description,
                   style: const TextStyle(
@@ -192,8 +180,8 @@ class _HoverContainerState extends State<HoverContainer> {
             TechnologiesPill(technologies: widget.technologies)
           ],
         ),
-      ),
-    ];
+      ],
+    );
   }
 
   List<Widget> _buildChildren2(BuildContext context, double screenWidth) {
@@ -287,14 +275,27 @@ class _HoverContainerState extends State<HoverContainer> {
   }
 
   double _height(double screenWidth) {
-    if (screenWidth < 1366) {
-      return MediaQuery.of(context).size.height / 1.5;
-    } else if (screenWidth < 1560) {
-      return MediaQuery.of(context).size.height / 2;
-    } else if (screenWidth < 1920) {
-      return MediaQuery.of(context).size.height / 2.2;
-    } else {
-      return MediaQuery.of(context).size.height / 3.5;
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final thresholds = {
+      350: 2.1,
+      400: 2.2,
+      500: 2.5,
+      550: 2.7,
+      600: 3,
+      800: 3.3,
+      900: 3.5,
+      1000: 3.8,
+      1200: 3.9,
+      1366: 4,
+      1560: 2.5,
+      1700: 2.6,
+      1920: 3.3,
+    };
+
+    for (final entry in thresholds.entries) {
+      if (screenWidth < entry.key) return deviceHeight / entry.value;
     }
+
+    return deviceHeight / 3.5; // Fallback case if screenWidth >= 1920
   }
 }
