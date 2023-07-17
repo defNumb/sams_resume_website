@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sams_website/appBar/standing_appbar.dart';
+import 'package:sams_website/utils/utils/screen_res.dart';
 import 'package:sams_website/views/about_me.dart';
 import 'package:sams_website/views/experience.dart';
 import 'package:sams_website/views/projects.dart';
@@ -53,8 +54,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     List<Widget> widgets = [
       const AboutMe(),
+      ScreenResWidget(height: screenHeight, width: screenWidth),
       const Experience(),
       const Projects(
         isHovering: true,
@@ -63,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> widgets2 = [
       appBar1366(context: context),
       const AboutMe(),
+      ScreenResWidget(height: screenHeight, width: screenWidth),
       const Experience(),
       const Projects(isHovering: true),
     ];
