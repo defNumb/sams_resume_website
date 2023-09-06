@@ -14,4 +14,8 @@ class HoverCubit extends Cubit<HoverState> {
   void changeHover2(bool hovering, int index) {
     emit(state.copyWith(isHovering2: hovering, currentIndex: index));
   }
+
+  void changeHover3(bool hovering, int index) {
+    emit(state.copyWith(isHovering3: hovering, currentIndex: index));
+  }
 }

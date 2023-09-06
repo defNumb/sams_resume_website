@@ -5,17 +5,20 @@ class HoverState extends Equatable {
   final int currentIndex;
   final bool isHovering1;
   final bool isHovering2;
+  final bool isHovering3;
 
   const HoverState({
     required this.currentIndex,
     required this.isHovering1,
     required this.isHovering2,
+    required this.isHovering3,
   });
 
   // initial state
   factory HoverState.initial() => const HoverState(
         isHovering1: true,
         isHovering2: true,
+        isHovering3: true,
         currentIndex: -1,
       );
 
@@ -25,11 +28,13 @@ class HoverState extends Equatable {
   HoverState copyWith({
     bool? isHovering1,
     bool? isHovering2,
+    bool? isHovering3,
     int? currentIndex,
   }) {
     return HoverState(
       isHovering1: isHovering1 ?? this.isHovering1,
       isHovering2: isHovering2 ?? this.isHovering2,
+      isHovering3: isHovering3 ?? this.isHovering3,
       currentIndex: currentIndex ?? this.currentIndex,
     );
   }

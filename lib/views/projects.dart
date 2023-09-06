@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../blocs/hover_state/cubit/hover_cubit.dart';
+import '../widgets/mobile_proj_container.dart';
+import '../widgets/projects_containers.dart';
 
 class Projects extends StatefulWidget {
-  final bool isHovering;
   const Projects({
     super.key,
-    required this.isHovering,
   });
 
   @override
@@ -12,41 +15,55 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
-  double _opacity(int index, int currentIndex) {
-    // use if statement to check whether index is equal to 0, 1 or -1
-    // if the current index is equal to the index of the container then return 1
-    // else return 0.5
-    if (index == currentIndex) {
-      return 1;
-    } else if (currentIndex == -1) {
-      return 1;
-    } else {
-      return 0.5;
-    }
-  }
-
+  List<String> appImages = [
+    'assets/images/sign-in-page.png',
+    'assets/images/store-page.png',
+    'assets/images/home_page.png',
+    'assets/images/pet-profile.png',
+    'assets/images/categories-page.png'
+  ];
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
-      decoration: BoxDecoration(
-        boxShadow: widget.isHovering
-            ? [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ]
-            : null,
-        borderRadius: BorderRadius.circular(10),
-        color: widget.isHovering
-            ? Colors.transparent
-            : const Color.fromARGB(94, 80, 79, 79),
-        // shadow
-      ),
-      child: Container(height: 500, width: 500),
+    return BlocBuilder<HoverCubit, HoverState>(
+      builder: (context, state) {
+        return Container(
+          color: Colors.transparent,
+          child: Column(
+            children: [
+              ProjectContainers(
+                websiteName: 'Veterinaria Universo',
+                description:
+                    'Friendly and easy to use website for a veterinary clinic.',
+                technologies: 'Flutter, Dart, HTML, CSS',
+                websiteLink: 'https://veterinariauniverso.com/',
+                imagePath: 'assets/images/vet_website.png',
+                index: 2,
+                isHovering: state.isHovering2,
+              ),
+              ProjectContainers(
+                websiteName: 'Bolivia Pet Supply',
+                description:
+                    'Friendly and easy to use website for a pet supplier.',
+                technologies: 'Flutter, Dart, HTML, CSS',
+                websiteLink: 'https://boliviapetsupply.com/',
+                imagePath: 'assets/images/bol_petsupply.png',
+                index: 3,
+                isHovering: state.isHovering2,
+              ),
+              // mobile project container
+              MobileProjectContainer(
+                  appName: 'Pet Market Bolivia App',
+                  description:
+                      '*COMING SOON*\nE-commerce app for a pet grooming and supply.',
+                  technologies: 'Flutter, Dart, HTML, CSS, REST API',
+                  imagesPath: appImages,
+                  index: 4,
+                  isHovering: state.isHovering2,
+                  githubLink: 'https://github.com/defNumb/petmarket_bo_app/'),
+            ],
+          ),
+        );
+      },
     );
   }
 }
