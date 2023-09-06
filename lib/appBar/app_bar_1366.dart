@@ -28,6 +28,8 @@ PreferredSizeWidget appBar1366({required BuildContext context}) {
               fontSize: 40,
               fontWeight: FontWeight.w600,
             ),
+            overflow: TextOverflow.visible,
+            softWrap: true,
           ),
           const SizedBox(
             height: 5,
@@ -42,18 +44,20 @@ PreferredSizeWidget appBar1366({required BuildContext context}) {
               fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
           // text saying : '' I create beautiful and functional apps with Flutter"
           Text(
-            "I create beautiful \nand functional apps with Flutter",
+            "I create beautiful and functional apps with Flutter",
             style: TextStyle(
               color: const Color.fromARGB(181, 173, 171, 171),
               fontFamily: Theme.of(context).textTheme.displayLarge!.fontFamily,
               fontSize: 14,
               fontWeight: FontWeight.w300,
             ),
+            overflow: TextOverflow.visible,
+            softWrap: true,
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 15),
           const SocialButtons(),
           const SizedBox(height: 10), // divider
         ],

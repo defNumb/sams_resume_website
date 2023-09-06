@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sams_website/blocs/hover_state/cubit/hover_cubit.dart';
@@ -47,91 +48,44 @@ class _HoverContainerState extends State<HoverContainer> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final currentIndex = context.read<HoverCubit>().state.currentIndex;
-    // width of device
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Opacity(
-      opacity: _opacity(widget.index, currentIndex),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeIn,
-        // rounded corners
-        decoration: BoxDecoration(
-          boxShadow: !widget.isHovering
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              : null,
-          borderRadius: BorderRadius.circular(10),
-          color: widget.isHovering
-              ? Colors.transparent
-              : const Color.fromARGB(94, 80, 79, 79),
-          // shadow
-        ),
-        child: screenWidth < 1366
-            ? Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Column(
-                  children: _buildChildren2(context, screenWidth),
-                ),
-              )
-            : _buildChildren(context, screenWidth),
-      ),
-    );
-  }
-
   Widget _buildChildren(BuildContext context, double screenWidth) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 25, 0, 0),
-                child: Text(
-                  widget.dates,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontFamily: 'Inter',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(50, 25, 15, 0),
+          child: Text(
+            widget.dates,
+            style: const TextStyle(
+              color: Colors.grey,
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w300,
             ),
-          ],
+          ),
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0, 23, widget.isHovering ? 0 : 20, 0),
-                    child: Text(
-                      widget.position,
-                      style: TextStyle(
-                        color: widget.index ==
-                                context.read<HoverCubit>().state.currentIndex
-                            ? Colors.blue
-                            : Colors.white,
-                        fontFamily: 'Inter',
-                        fontSize: screenWidth < 1666 ? 16 : 18,
-                        fontWeight: FontWeight.w600,
-                      ),
+                Padding(
+                  padding:
+                      EdgeInsets.fromLTRB(0, 23, widget.isHovering ? 0 : 20, 0),
+                  child: Text(
+                    widget.position,
+                    style: TextStyle(
+                      color: widget.index ==
+                              context.read<HoverCubit>().state.currentIndex
+                          ? Colors.blue
+                          : Colors.white,
+                      fontFamily: 'Inter',
+                      fontSize: screenWidth < 1666 ? 16 : 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -149,23 +103,19 @@ class _HoverContainerState extends State<HoverContainer> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Flexible(
-                  child: Text(
-                    widget.company,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              widget.company,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontFamily: 'Inter',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             SizedBox(
-              child: Flexible(
+              width: 400,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 100, 0),
                 child: Text(
                   widget.description,
                   style: const TextStyle(
@@ -177,125 +127,140 @@ class _HoverContainerState extends State<HoverContainer> {
                 ),
               ),
             ),
-            TechnologiesPill(technologies: widget.technologies)
+            TechnologiesPill(technologies: widget.technologies),
           ],
         ),
       ],
     );
   }
+  // _buildChildren2
 
-  List<Widget> _buildChildren2(BuildContext context, double screenWidth) {
-    return [
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        0, 23, widget.isHovering ? 0 : 20, 0),
-                    child: Text(
-                      widget.position,
-                      style: TextStyle(
-                        color: widget.index ==
-                                context.read<HoverCubit>().state.currentIndex
-                            ? Colors.blue
-                            : Colors.white,
-                        fontFamily: 'Inter',
-                        fontSize: screenWidth < 1666 ? 16 : 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                // little arrow pointing up right
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 23, 0, 0),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    color: widget.index ==
-                            context.read<HoverCubit>().state.currentIndex
-                        ? Colors.blue
-                        : Colors.white,
-                    size: 20,
-                  ),
-                ),
-              ],
+  Widget _buildChildren2(BuildContext context, double screenWidth) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              widget.dates,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+              ),
             ),
-            Row(
-              children: [
-                Flexible(
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                child: Padding(
+                  padding:
+                      EdgeInsets.fromLTRB(0, 0, widget.isHovering ? 0 : 20, 0),
                   child: Text(
-                    widget.company,
-                    style: const TextStyle(
-                      color: Colors.grey,
+                    widget.position,
+                    style: TextStyle(
+                      color: widget.index ==
+                              context.read<HoverCubit>().state.currentIndex
+                          ? Colors.blue
+                          : Colors.white,
                       fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
+                      fontSize: screenWidth < 1666 ? 16 : 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 25, 0),
-              child: SizedBox(
-                width: screenWidth < 1366
-                    ? MediaQuery.of(context).size.width / 1.3
-                    : MediaQuery.of(context).size.width / 3,
+              ),
+              // little arrow pointing up right
+              Icon(
+                Icons.arrow_forward_ios,
+                color: widget.index ==
+                        context.read<HoverCubit>().state.currentIndex
+                    ? Colors.blue
+                    : Colors.white,
+                size: 20,
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Flexible(
                 child: Text(
-                  widget.description,
+                  widget.company,
                   style: const TextStyle(
-                    color: Color.fromARGB(104, 255, 255, 255),
+                    color: Colors.grey,
                     fontFamily: 'Inter',
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w300,
                   ),
                 ),
               ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 25, 0),
+            child: SizedBox(
+              width: screenWidth < 1366
+                  ? MediaQuery.of(context).size.width / 1.3
+                  : MediaQuery.of(context).size.width / 3,
+              child: Text(
+                widget.description,
+                style: const TextStyle(
+                  color: Color.fromARGB(104, 255, 255, 255),
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
-            TechnologiesPill(technologies: widget.technologies)
-          ],
+          ),
+          TechnologiesPill(technologies: widget.technologies)
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentIndex = context.read<HoverCubit>().state.currentIndex;
+    // width of device
+    double screenWidth = MediaQuery.of(context).size.width;
+    return MouseRegion(
+      onEnter: (PointerEnterEvent event) =>
+          context.read<HoverCubit>().changeHover1(false, widget.index),
+      onExit: (PointerExitEvent event) =>
+          context.read<HoverCubit>().changeHover1(true, -1),
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 100),
+        opacity: _opacity(widget.index, currentIndex),
+        child: Container(
+          // rounded corners
+          decoration: BoxDecoration(
+            boxShadow: !widget.isHovering
+                ? [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ]
+                : null,
+            borderRadius: BorderRadius.circular(10),
+            color: widget.isHovering
+                ? Colors.transparent
+                : const Color.fromARGB(94, 80, 79, 79),
+            // shadow
+          ),
+          child: screenWidth < 1366
+              ? _buildChildren2(context, screenWidth)
+              : _buildChildren(context, screenWidth),
         ),
       ),
-    ];
-  }
-
-  double _width(double screenWidth) {
-    if (screenWidth < 1366) {
-      return MediaQuery.of(context).size.width / 1.2;
-    } else if (screenWidth < 1500) {
-      return MediaQuery.of(context).size.width / 3.2;
-    } else {
-      return MediaQuery.of(context).size.width / 4.5;
-    }
-  }
-
-  double _height(double screenWidth) {
-    final deviceHeight = MediaQuery.of(context).size.height;
-    final thresholds = {
-      350: 2.1,
-      400: 2.2,
-      500: 2.5,
-      550: 2.7,
-      600: 3,
-      800: 3.3,
-      900: 3.5,
-      1000: 3.8,
-      1200: 3.9,
-      1366: 4,
-      1560: 2.5,
-      1700: 2.6,
-      1920: 3.3,
-    };
-
-    for (final entry in thresholds.entries) {
-      if (screenWidth < entry.key) return deviceHeight / entry.value;
-    }
-
-    return deviceHeight / 3.5; // Fallback case if screenWidth >= 1920
+    );
   }
 }

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 ThemeData themeData(BuildContext context) {
   return ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: const Color.fromARGB(255, 26, 25, 25),
+      primary:
+          Colors.transparent, // primary: const Color.fromARGB(255, 26, 25, 25),
       secondary: const Color.fromARGB(255, 144, 103, 198),
       tertiary: Colors.white,
       // tertiary:  const Color.fromARGB(255, 141, 134, 201),

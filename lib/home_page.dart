@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sams_website/appBar/standing_appbar.dart';
-import 'package:sams_website/utils/utils/screen_res.dart';
 import 'package:sams_website/views/about_me.dart';
 import 'package:sams_website/views/experience.dart';
 import 'package:sams_website/views/projects.dart';
@@ -54,21 +53,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     List<Widget> widgets = [
       const AboutMe(),
-      ScreenResWidget(height: screenHeight, width: screenWidth),
+      // ScreenResWidget(height: screenHeight, width: screenWidth),
       const Experience(),
-      const Projects(
-        isHovering: true,
-      ),
+      const SizedBox(height: 50),
+      const Projects(),
     ];
     List<Widget> widgets2 = [
       appBar1366(context: context),
       const AboutMe(),
-      ScreenResWidget(height: screenHeight, width: screenWidth),
       const Experience(),
-      const Projects(isHovering: true),
+      // ScreenResWidget(height: screenHeight, width: screenWidth),
+      const Projects(),
     ];
     // variables with screen height and width
     // double screenHeight = MediaQuery.of(context).size.height;
@@ -85,8 +83,8 @@ class _HomePageState extends State<HomePage> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-                      Color.fromARGB(255, 14, 13, 13),
-                      Color.fromARGB(255, 49, 53, 63),
+                      Color.fromARGB(255, 7, 4, 19),
+                      Color.fromARGB(255, 77, 84, 100),
                     ],
                   ),
                 ),
@@ -127,8 +125,8 @@ class _HomePageState extends State<HomePage> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-                      Color.fromARGB(255, 14, 13, 13),
-                      Color.fromARGB(255, 49, 53, 63),
+                      Color.fromARGB(255, 7, 4, 19),
+                      Color.fromARGB(255, 77, 84, 100),
                     ],
                   ),
                 ),
